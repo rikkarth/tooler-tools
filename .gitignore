@@ -3,8 +3,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### IntelliJ IDEA ###git add .
-
+### IntelliJ IDEA ###
 .idea/*
 *.iws
 *.iml
@@ -34,3 +33,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Project ###
+src/main/java/org/toolertools/Sandbox.java

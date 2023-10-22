@@ -11,6 +11,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.toolertools.xml.internal.DocConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -25,14 +26,10 @@ public class XmlHandler {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 
-            documentBuilderFactory.setNamespaceAware(true);
-            documentBuilderFactory.setValidating(true);
-            documentBuilderFactory.setFeature("http://xml.org/sax/features/namespaces", false);
-            documentBuilderFactory.setFeature("http://xml.org/sax/features/validation", false);
-            documentBuilderFactory.setFeature(
-                "http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-            documentBuilderFactory.setFeature(
-                "http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            documentBuilderFactory.setFeature(DocConstants.NAMESPACES, false);
+            documentBuilderFactory.setFeature(DocConstants.VALIDATION, false);
+            documentBuilderFactory.setFeature(DocConstants.LOAD_DTD_GRAMMAR, false);
+            documentBuilderFactory.setFeature(DocConstants.LOAD_EXTERNAL_DTD, false);
 
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 

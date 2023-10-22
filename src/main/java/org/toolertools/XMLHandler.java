@@ -51,8 +51,7 @@ public class XMLHandler {
 
     public static NodeList getNodeListFromXPath(XPathExpression xPathExpression, Document document) {
         try {
-            NodeList result = (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
-            return result != null ? result : document.createDocumentFragment().getChildNodes();
+            return (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
         } catch (XPathExpressionException xpee) {
             return document.createDocumentFragment().getChildNodes();
         }

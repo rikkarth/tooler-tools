@@ -1,4 +1,4 @@
-package org.toolertools.xml.internal;
+package org.toolertools.internal;
 
 public class DocConstants {
 

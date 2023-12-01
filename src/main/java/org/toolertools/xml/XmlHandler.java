@@ -24,6 +24,25 @@ public class XmlHandler {
         throw new AssertionError("XmlHandler should not be instantiated.");
     }
 
+    public static String getStringFromXPath(String expression, Document document) {
+        try {
+            XPathExpression xPathExpression = createXPathExpression(expression);
+            return xPathExpression.evaluate(document);
+        } catch (XPathExpressionException | NullPointerException e) {
+            return "";
+        }
+    }
+
+    public static NodeList getNodeListFromXPath(String expression, Document document) {
+        try {
+            XPathExpression xPathExpression = createXPathExpression(expression);
+            return (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
+        } catch (XPathExpressionException | NullPointerException e) {
+            Document doc = createEmptyDocument();
+            return doc.createDocumentFragment().getChildNodes();
+        }
+    }
+
     public static Optional<Document> getOptionalDomFromFile(final File file) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -46,25 +65,6 @@ public class XmlHandler {
     private static XPathExpression createXPathExpression(String expression) throws XPathExpressionException {
         XPath xpath = xPathFactory.newXPath();
         return xpath.compile(expression);
-    }
-
-    public static String getStringFromXPath(String expression, Document document) {
-        try {
-            XPathExpression xPathExpression = createXPathExpression(expression);
-            return xPathExpression.evaluate(document);
-        } catch (XPathExpressionException | NullPointerException e) {
-            return "";
-        }
-    }
-
-    public static NodeList getNodeListFromXPath(String expression, Document document) {
-        try {
-            XPathExpression xPathExpression = createXPathExpression(expression);
-            return (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
-        } catch (XPathExpressionException | NullPointerException e) {
-            Document doc = createEmptyDocument();
-            return doc.createDocumentFragment().getChildNodes();
-        }
     }
 
     private static Document createEmptyDocument() {

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
-    <element1>Value 1</element1>
-    <element2>Value 2</element2>
-    <emptyElement></emptyElement>
-    <nestedElement>
-        <subElement>SubValue</subElement>
-    </nestedElement>
-    <elements>
-        <element>Item 1</element>
-        <element>Item 2</element>
-        <element>Item 3</element>
-    </elements>
+<root xmlns="http://example.com/test">
+	<test-element>Test Value</test-element>
+	<empty-element></empty-element>
+	<self-closing/>
+	<element-group>
+		<nested-element>Item 1</nested-element>
+		<nested-element>Item 2</nested-element>
+		<nested-element>Item 3</nested-element>
+	</element-group>
 </root>

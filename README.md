@@ -2,16 +2,17 @@
 
 ## [0.0.3] - 01-12-2023
 
-### Changed
-
-- **XmlHandler** now handles XPathExpressions internally, getStringFromXPath and getNodeListFromXPath both now only
-  require the expression to be provided as a String instead of an XPathExpression object.
-
 ### Added
 
 - CHANGELOG.md
 - **Installed**: Maven Wrapper
 - **Installed**: JUnit Params
+- Ability to retrieve single Node from XPath with XmlHandler.
+
+### Changed
+
+- **XmlHandler** now handles XPathExpressions internally, getStringFromXPath and getNodeListFromXPath both now only
+  require the expression to be provided as a String instead of an XPathExpression object.
 
 # Tooler-Tools
 

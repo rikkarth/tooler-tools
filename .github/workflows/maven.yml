@@ -45,3 +45,21 @@ jobs:
                     cache: maven
             -   name: Build with Maven
                 run: mvn -B package --file pom.xml
+
+    create_tag:
+
+        runs-on: ubuntu-latest
+
+        needs: build
+
+        if: github.ref == 'refs/heads/main'
+
+        steps:
+            -   name: Get version from pom.xml
+                run: echo "##[set-output name=version]$(xmllint --xpath 'string(/project/version)' pom.xml)"
+                id: get_version
+            -   name: Create tag
+                run: |
+                    echo "Creating tag v${{ steps.get_version.outputs.version }}"
+                    git tag -a v${{ steps.get_version.outputs.version }} -m "Release v${{ steps.get_version.outputs.version }}"
+                    git push origin v${{ steps.get_version.outputs.version }}

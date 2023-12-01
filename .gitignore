@@ -35,5 +35,4 @@ build/
 .DS_Store
 
 ### Project ###
-src/main/java/org/toolertools/Sandbox.java
 dependency-reduced-pom.xml

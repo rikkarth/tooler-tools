@@ -1,0 +1,19 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.0.3] - 01-12-2023
+
+### Changed
+
+- **XmlHandler** now handles XPathExpressions internally, getStringFromXPath and getNodeListFromXPath both now only
+  require the expression to be provided as a String instead of an XPathExpression object.
+
+### Added
+
+- CHANGELOG.md
+- **Installed**: Maven Wrapper
+- **Installed**: JUnit Params

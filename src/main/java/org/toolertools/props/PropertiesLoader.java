@@ -6,7 +6,6 @@ import java.util.Properties;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.toolertools.internal.ExceptionErrorDisplay;
 import org.toolertools.internal.exceptions.PropertiesGenerationException;
 import org.toolertools.internal.exceptions.PropertiesLoadingException;
 import org.toolertools.pathfinder.SystemEnvParser;
@@ -20,14 +19,20 @@ public class PropertiesLoader {
     public Properties loadProperties(String propName) throws PropertiesGenerationException {
 
         String filePath = this.getOptionalFilePath(propName).orElseThrow(
-            () -> new PropertiesLoadingException(
-                ExceptionErrorDisplay.PROPERTIES_LOADING_ERROR.get(propName)));
+            () -> new PropertiesLoadingException(getPropertiesLoadingErrorMsg(propName)));
 
         String propsPath = SystemEnvParser.getEnvPath(filePath);
 
         return this.getOptionalProperties(propsPath).orElseThrow(
-            () -> new PropertiesGenerationException(
-                ExceptionErrorDisplay.INVALID_PATH_TO_PROP.get(propName, propsPath)));
+            () -> new PropertiesGenerationException(getInvalidPathToPropErrorMsg(propName, propsPath)));
+    }
+
+    private String getInvalidPathToPropErrorMsg(String propName, String propsPath) {
+        return String.format("Invalid path to %s.properties. Path provided -> %s", propName, propsPath);
+    }
+
+    private String getPropertiesLoadingErrorMsg(String propName) {
+        return String.format("Error loading %s.properties.", propName);
     }
 
     private Optional<Properties> getOptionalProperties(String filePath) {

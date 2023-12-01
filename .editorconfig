@@ -19,3 +19,7 @@ indent_size = 4
 # Ignore some files and directories
 [**.md]
 max_line_length = 120
+
+[*.xml]
+indent_style = tab
+tab_width = 4

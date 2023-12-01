@@ -2,6 +2,7 @@ package org.toolertools.xml;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,6 +14,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.toolertools.internal.DocConstants;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -36,10 +38,33 @@ public class XmlHandler {
     public static NodeList getNodeListFromXPath(String expression, Document document) {
         try {
             XPathExpression xPathExpression = createXPathExpression(expression);
-            return (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
+            return Objects.requireNonNull((NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET));
         } catch (XPathExpressionException | NullPointerException e) {
             Document doc = createEmptyDocument();
             return doc.createDocumentFragment().getChildNodes();
+        }
+    }
+
+    public static Node getNodeFromXPath(String expression, Document document) {
+        try {
+            XPathExpression xPathExpression = createXPathExpression(expression);
+            return Objects.requireNonNull((Node) xPathExpression.evaluate(document, XPathConstants.NODE));
+        } catch (XPathExpressionException | NullPointerException e) {
+            Document doc = createEmptyDocument();
+            return doc.createElement("null");
+        }
+    }
+
+    public static Node getNodeFromXPath(String expression, Document document, boolean onErrorReturnNull) {
+        try {
+            XPathExpression xPathExpression = createXPathExpression(expression);
+            return Objects.requireNonNull((Node) xPathExpression.evaluate(document, XPathConstants.NODE));
+        } catch (XPathExpressionException | NullPointerException e) {
+            if (onErrorReturnNull) {
+                return null;
+            }
+            Document doc = createEmptyDocument();
+            return doc.createElement("null");
         }
     }
 

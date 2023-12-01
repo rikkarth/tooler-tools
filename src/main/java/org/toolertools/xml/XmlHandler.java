@@ -18,6 +18,8 @@ import org.xml.sax.SAXException;
 
 public class XmlHandler {
 
+    private static final XPathFactory xPathFactory = XPathFactory.newInstance();
+
     private XmlHandler() {
         throw new AssertionError("XmlHandler should not be instantiated.");
     }
@@ -41,26 +43,25 @@ public class XmlHandler {
         }
     }
 
-    public static XPathExpression createXPathExpression(String expression)
-        throws XPathExpressionException {
-        XPathFactory xPathFactory = XPathFactory.newInstance();
+    private static XPathExpression createXPathExpression(String expression) throws XPathExpressionException {
         XPath xpath = xPathFactory.newXPath();
         return xpath.compile(expression);
     }
 
-    public static String getStringFromXPath(XPathExpression xPathExpression, Document document) {
+    public static String getStringFromXPath(String expression, Document document) {
         try {
+            XPathExpression xPathExpression = createXPathExpression(expression);
             return xPathExpression.evaluate(document);
         } catch (XPathExpressionException | NullPointerException e) {
             return "";
         }
     }
 
-    public static NodeList getNodeListFromXPath(XPathExpression xPathExpression,
-        Document document) {
+    public static NodeList getNodeListFromXPath(String expression, Document document) {
         try {
+            XPathExpression xPathExpression = createXPathExpression(expression);
             return (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
-        } catch (XPathExpressionException xpee) {
+        } catch (XPathExpressionException | NullPointerException e) {
             Document doc = createEmptyDocument();
             return doc.createDocumentFragment().getChildNodes();
         }
@@ -71,8 +72,8 @@ public class XmlHandler {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             return builder.newDocument();
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
+        } catch (ParserConfigurationException pce) {
+            throw new IllegalStateException(pce);
         }
     }
 }

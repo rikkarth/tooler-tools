@@ -1,101 +1,72 @@
 package org.toolertools.xml;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
-import java.util.Optional;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-public class XmlHandlerTest {
+class XmlHandlerTest {
 
-    private final String element1XPath = "/root/element1/text()";
-    private final String emptyElementXPath = "/root/emptyElement/text()";
-    private final String compliantXPath = this.element1XPath;
-    private final String malformedXPath = "/root/element1/tet()";
+    private static final String ELEMENT_1_X_PATH = "/root/element1/text()";
+    private static final String EMPTY_ELEMENT_X_PATH = "/root/emptyElement/text()";
+    private static final String COMPLIANT_X_PATH = ELEMENT_1_X_PATH;
+    private static final String MALFORMED_X_PATH = "/root/element1/tet()";
 
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void testGetStringFromXPath_success(String input) {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
-    @Test
-    public void testGetStringFromXPath_success() {
-        Optional<Document> optionalDocument = XmlHandler.getOptionalDomFromFile(
-            new File("src/test/resources/test_resource_1.xml"));
-        optionalDocument.ifPresent(doc -> {
-            try {
-                XPathExpression xpeElement1 = XmlHandler.createXPathExpression(this.element1XPath);
-                XPathExpression xpeEmptyElement = XmlHandler.createXPathExpression(
-                    this.emptyElementXPath);
+        String element1 = XmlHandler.getStringFromXPath(ELEMENT_1_X_PATH, doc);
+        String emptyElement = XmlHandler.getStringFromXPath(EMPTY_ELEMENT_X_PATH, doc);
 
-                String element1 = XmlHandler.getStringFromXPath(xpeElement1, doc);
-                String emptyElement = XmlHandler.getStringFromXPath(xpeEmptyElement, doc);
-
-                assertFalse(element1.isEmpty(), element1XPath + " should not be empty");
-                assertTrue(emptyElement.isEmpty(), emptyElementXPath + " should be empty");
-            } catch (XPathExpressionException xpee) {
-                throw new RuntimeException(xpee);
-            }
-        });
+        assertFalse(element1.isEmpty(), ELEMENT_1_X_PATH + " should not be empty");
+        assertTrue(emptyElement.isEmpty(), EMPTY_ELEMENT_X_PATH + " should be empty");
     }
 
-    @Test
-    public void testGetStringFromXPath_failure() {
-        Optional<Document> optionalDocument = XmlHandler.getOptionalDomFromFile(
-            new File("src/test/resources/test_resource_1.xml"));
-        optionalDocument.ifPresent(doc -> {
-            try {
-                XPathExpression xpeElement1 = XmlHandler.createXPathExpression(this.element1XPath);
-                XPathExpression xpeEmptyElement = XmlHandler.createXPathExpression(
-                    this.emptyElementXPath);
-                String element1 = XmlHandler.getStringFromXPath(xpeElement1, null);
-                String emptyElement = XmlHandler.getStringFromXPath(xpeEmptyElement, null);
-                assertTrue(element1.isEmpty(), element1XPath + " should not be empty");
-                assertTrue(emptyElement.isEmpty(), emptyElementXPath + "should be empty");
-            } catch (XPathExpressionException xpee) {
-                throw new RuntimeException(xpee);
-            }
-        });
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void givenBadValues_getStringFromXPath_shouldReturnEmptyString(String input) {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
+
+        String element1 = XmlHandler.getStringFromXPath(ELEMENT_1_X_PATH, null);
+        String emptyElement = XmlHandler.getStringFromXPath(EMPTY_ELEMENT_X_PATH, null);
+        String malformed = XmlHandler.getStringFromXPath(MALFORMED_X_PATH, doc);
+        String malformed2 = XmlHandler.getStringFromXPath(null, doc);
+
+        assertTrue(element1.isEmpty(), ELEMENT_1_X_PATH + " should be empty");
+        assertTrue(emptyElement.isEmpty(), EMPTY_ELEMENT_X_PATH + "should be empty");
+        assertTrue(malformed.isEmpty(), MALFORMED_X_PATH + "should be empty");
+        assertTrue(malformed2.isEmpty(), "provided null expression should be empty");
     }
 
-    @Test
-    public void testCreateXPathExpression() {
-        Optional<Document> optionalDocument = XmlHandler.getOptionalDomFromFile(
-            new File("src/test/resources/test_resource_1.xml"));
-        optionalDocument.ifPresent(doc -> {
-            try {
-                assertDoesNotThrow(() -> XmlHandler.createXPathExpression(this.compliantXPath),
-                    "should not throw");
-                assertThrows(XPathExpressionException.class,
-                    () -> XmlHandler.createXPathExpression(this.malformedXPath),
-                    "should throw " + XPathExpressionException.class);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void givenCompliantValues_testNodeList_success(String input) {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
+
+        NodeList nlCompliant = XmlHandler.getNodeListFromXPath(COMPLIANT_X_PATH, doc);
+
+        assertEquals(1, nlCompliant.getLength(), "NodeList should be size 1");
     }
 
-    @Test
-    public void testGetNodeListFromXPath() {
-        Optional<Document> optionalDocument = XmlHandler.getOptionalDomFromFile(
-            new File("src/test/resources/test_resource_1.xml"));
-        optionalDocument.ifPresent(doc -> {
-            try {
-                XPathExpression xpeCompliant = XmlHandler.createXPathExpression(
-                    this.compliantXPath);
-                NodeList nlCompliant = XmlHandler.getNodeListFromXPath(xpeCompliant, doc);
-                NodeList nlBad = XmlHandler.getNodeListFromXPath(xpeCompliant, null);
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void givenBadValues_testNodeList_failure(String input) {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
-                assertEquals(0, nlBad.getLength(), "NodeList should be be size 0");
-                assertEquals(1, nlCompliant.getLength(), "NodeList should be size 1");
+        NodeList nlBad = XmlHandler.getNodeListFromXPath(COMPLIANT_X_PATH, null);
+        NodeList nlBad2 = XmlHandler.getNodeListFromXPath(MALFORMED_X_PATH, doc);
+        NodeList nlBad3 = XmlHandler.getNodeListFromXPath(null, doc);
 
-            } catch (XPathExpressionException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        assertEquals(0, nlBad.getLength(), "NodeList should be be size 0");
+        assertEquals(0, nlBad2.getLength(), "NodeList should be be size 0");
+        assertEquals(0, nlBad3.getLength(), "NodeList should be be size 0");
     }
 }

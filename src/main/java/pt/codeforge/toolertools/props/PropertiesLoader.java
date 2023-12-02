@@ -1,4 +1,4 @@
-package org.toolertools.props;
+package pt.codeforge.toolertools.props;
 
 import java.util.Iterator;
 import java.util.Optional;
@@ -6,9 +6,9 @@ import java.util.Properties;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.toolertools.internal.exceptions.PropertiesGenerationException;
-import org.toolertools.internal.exceptions.PropertiesLoadingException;
-import org.toolertools.pathfinder.SystemEnvParser;
+import pt.codeforge.toolertools.internal.exceptions.PropertiesGenerationException;
+import pt.codeforge.toolertools.internal.exceptions.PropertiesLoadingException;
+import pt.codeforge.toolertools.pathfinder.SystemEnvParser;
 
 public class PropertiesLoader {
 

@@ -10,6 +10,14 @@
 
     <name>tooler-tools</name>
 
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/rikkarth/tooler-tools</url>
+		</repository>
+	</distributionManagement>
+
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-configuration2 -->

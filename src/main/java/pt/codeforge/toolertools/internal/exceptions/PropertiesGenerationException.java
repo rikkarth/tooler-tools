@@ -1,4 +1,4 @@
-package org.toolertools.internal.exceptions;
+package pt.codeforge.toolertools.internal.exceptions;
 
 public class PropertiesGenerationException extends Exception {
 

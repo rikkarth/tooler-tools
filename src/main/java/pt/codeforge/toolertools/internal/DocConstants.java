@@ -1,4 +1,4 @@
-package org.toolertools.internal;
+package pt.codeforge.toolertools.internal;
 
 public class DocConstants {
 

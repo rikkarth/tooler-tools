@@ -1,4 +1,4 @@
-package org.toolertools.xml;
+package pt.codeforge.toolertools.xml;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import org.toolertools.internal.DocConstants;
+import pt.codeforge.toolertools.internal.DocConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

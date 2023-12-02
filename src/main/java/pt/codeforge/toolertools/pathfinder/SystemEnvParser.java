@@ -1,4 +1,4 @@
-package org.toolertools.pathfinder;
+package pt.codeforge.toolertools.pathfinder;
 
 import java.util.Arrays;
 import java.util.List;

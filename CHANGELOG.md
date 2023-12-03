@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unit tests signatures in `XmlHandlerTest` for improved readability.
 - Separated `#getNodeFromXPath` unit test assertions for better readability.
 
+### Removed
+
+- Maven Wrapper for smaller binary. Unecessary since *"this is wibrary"*.
+
 ## [0.0.4] - 02-12-2023
 
 ### Changed

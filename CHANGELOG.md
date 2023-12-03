@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Unit tests in `pt.codeforge.toolertools.xml.XmlHandlerTest`
-    - Tested `#getOptionalDomFromFile`;
+    - Tested `#getOptionalDomFromFile`
+- JavaDoc to `pt.codeforge.toolertools.xml.XmlHandler`
 
 ### Changed
 

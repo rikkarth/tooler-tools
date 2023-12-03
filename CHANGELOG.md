@@ -7,14 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.5] - Dev
 
-## Changed
+### Changed
 
 - README.md update
 - pom.xml update for integration with Maven Central
 
 ## [0.0.4] - 02-12-2023
 
-## Changed
+### Changed
 
 - Package name change to reflect new org. From `org.tooler-tools` to `pt.codeforge`.
 - Domain `pt.codeforge` now redirects to this repository - `https://github.com/rikkarth/tooler-tools`.

@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Optional;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.w3c.dom.Document;
@@ -27,24 +29,30 @@ class XmlHandlerTest {
 
     @ParameterizedTest
     @ValueSource(strings = "src/test/resources/test_resource_1.xml")
-    void testGetStringFromXPath_success(String input) {
+    void givenElementsWithText_getStringFromXPath_shouldReturnText(String input) {
         Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
         String testElement = XmlHandler.getStringFromXPath(TEST_ELEMENT_TEXT, doc);
         String nestedElement = XmlHandler.getStringFromXPath(NESTED_ELEMENT_TEXT, doc);
-
-        String emptyElement = XmlHandler.getStringFromXPath(EMPTY_ELEMENT_TEXT, doc);
-        String selfClosing = XmlHandler.getStringFromXPath(SELF_CLOSING_TEXT, doc);
         String elementGroup = XmlHandler.getStringFromXPath(ELEMENT_GROUP_TEXT, doc);
 
         assertPresentElements(testElement, nestedElement, elementGroup);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void givenEmptyElements_getStringFromXPath_shouldReturnEmptyString(String input) {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
+
+        String emptyElement = XmlHandler.getStringFromXPath(EMPTY_ELEMENT_TEXT, doc);
+        String selfClosing = XmlHandler.getStringFromXPath(SELF_CLOSING_TEXT, doc);
 
         assertEmptyElements(emptyElement, selfClosing);
     }
 
     @ParameterizedTest
     @ValueSource(strings = "src/test/resources/test_resource_1.xml")
-    void givenBadValues_getStringFromXPath_shouldReturnEmptyString(String input) {
+    void givenBadParams_getStringFromXPath_shouldReturnEmptyString(String input) {
         Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
         String testElement = XmlHandler.getStringFromXPath(TEST_ELEMENT_TEXT, null);
@@ -57,7 +65,7 @@ class XmlHandlerTest {
 
     @ParameterizedTest
     @ValueSource(strings = "src/test/resources/test_resource_1.xml")
-    void givenCompliantValues_testNodeList_success(String input) {
+    void givenCompliantParams_getNodeListFromXPath_shouldReturnMappedList(String input) {
         Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
         NodeList elementGroup = XmlHandler.getNodeListFromXPath(NESTED_ELEMENT_TEXT, doc);
@@ -67,30 +75,32 @@ class XmlHandlerTest {
 
     @ParameterizedTest
     @ValueSource(strings = "src/test/resources/test_resource_1.xml")
-    void givenBadValues_testNodeList_failure(String input) {
+    void givenBadValues_testNodeList_shouldReturnEmptyNodeList(String input) {
         Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
         NodeList nullDocumentCase = XmlHandler.getNodeListFromXPath(COMPLIANT_X_PATH, null);
         NodeList malformedXPathCase = XmlHandler.getNodeListFromXPath(MALFORMED_X_PATH, doc);
-        NodeList nullXPathcase = XmlHandler.getNodeListFromXPath(null, doc);
+        NodeList nullXPathCase = XmlHandler.getNodeListFromXPath(null, doc);
 
-        assertEmptyNodeLists(nullDocumentCase, malformedXPathCase, nullXPathcase);
+        assertEmptyNodeLists(nullDocumentCase, malformedXPathCase, nullXPathCase);
     }
 
     @ParameterizedTest
     @ValueSource(strings = "src/test/resources/test_resource_1.xml")
-    void givenCompliantValues_testGetNodeFromXPath_success(String input) {
+    void givenCompliantValues_testGetNodeFromXPath_shouldReturnValidNode(String input) {
         Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
         Node groupElement = XmlHandler.getNodeFromXPath(ELEMENT_GROUP_NODE, doc);
 
+        String expectedNodeName = "element-group";
+
         assertEquals(Document.ELEMENT_NODE, groupElement.getNodeType(), "Should be element node");
-        assertEquals("element-group", groupElement.getNodeName(), "Should be element node");
+        assertEquals(expectedNodeName, groupElement.getNodeName(), "Should be element node");
     }
 
     @ParameterizedTest
     @ValueSource(strings = "src/test/resources/test_resource_1.xml")
-    void givenBadValues_testGetNodeFromXPath_failure(String input) {
+    void givenBadParams_getNodeFromXPath_nodesShouldBeInvalidButNotNull(String input) {
         Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
         Node groupElement = XmlHandler.getNodeFromXPath(MALFORMED_X_PATH, doc);
@@ -98,18 +108,51 @@ class XmlHandlerTest {
         Node groupElementNullDoc = XmlHandler.getNodeFromXPath(MALFORMED_X_PATH, null);
 
         assertNotNullNodes(groupElement, groupElementNullExpression, groupElementNullDoc);
-
-        assertNodeNameNull(groupElement, groupElementNullExpression, groupElementNullDoc);
+        assertInvalidNode(groupElement, groupElementNullExpression, groupElementNullDoc);
     }
 
     @ParameterizedTest
     @ValueSource(strings = "src/test/resources/test_resource_1.xml")
-    void givenBadValues_testGetNodeFromXPathOverloaded_failure(String input) {
+    void givenBadParams_getNodeFromXPathOverloaded_shouldReturnNull(String input) {
         Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
 
         Node groupElement = XmlHandler.getNodeFromXPath(MALFORMED_X_PATH, doc, true);
 
         assertNull(groupElement, "Should be null");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void givenBadParams_getNodeFromXPathOverloaded_shouldNotReturnNull(String input) {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
+
+        Node groupElement = XmlHandler.getNodeFromXPath(MALFORMED_X_PATH, doc, false);
+
+        assertNotNull(groupElement, "Should not be null");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void givenValidInput_getOptionalDomFromFile_shouldReturnValidDomFromFile(String input) {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
+
+        assertDocIsValid(doc);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/notFound.xml")
+    void givenBadInput_getOptionalDomFromFile_shouldBeEmpty(String input) {
+        Optional<Document> optionalDocument = XmlHandler.getOptionalDomFromFile(new File(input));
+
+        assertFalse(optionalDocument.isPresent());
+        assertThrows(IllegalStateException.class, () -> optionalDocument.orElseThrow(IllegalStateException::new),
+            "Should throw IllegalStateException");
+    }
+
+    private static void assertDocIsValid(Document doc) {
+        assertNotNull(doc, "Document should not be null.");
+        assertNotNull(doc.getFirstChild(), "Document's first child should not be null.");
+        assertTrue(doc.getFirstChild().getChildNodes().getLength() > 0, "Root should have more than 0 childs.");
     }
 
     private static void assertEmptyElements(String... strings) {
@@ -129,7 +172,7 @@ class XmlHandlerTest {
         Arrays.stream(nodes).forEach(node -> assertNotNull(node, "Should not be null"));
     }
 
-    private static void assertNodeNameNull(Node... nodes) {
+    private static void assertInvalidNode(Node... nodes) {
         Arrays.stream(nodes).forEach(node -> assertEquals("null", node.getNodeName(), "Node name should be 'null'"));
     }
 }

@@ -25,7 +25,7 @@ simplify your development tasks.
 
 ## Featuring
 
-**XmlHandler** that retrieves values from a doc when provided with the target XPath.
+**XmlHandler** retrieves values from a doc when provided with the target XPath.
 
 Why parse through a whole XML just to retrieve one value? We can use the power of tooler-tools and XPath. There's no
 management or error handling.

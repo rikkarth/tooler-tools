@@ -7,10 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.5] - Dev
 
+### Added
+
+- Unit tests in `pt.codeforge.toolertools.xml.XmlHandlerTest`
+    - Tested `#getOptionalDomFromFile`
+- JavaDoc to `pt.codeforge.toolertools.xml.XmlHandler`
+
 ### Changed
 
-- README.md update
-- pom.xml update for integration with Maven Central
+- README.md
+- pom.xml for integration with *Maven Central*
+- Unit tests signatures in `XmlHandlerTest` for improved readability.
+- Separated `#getNodeFromXPath` unit test assertions for better readability.
+
+### Removed
+
+- Maven Wrapper for smaller binary. Unecessary since *"this is wibrary"*.
 
 ## [0.0.4] - 02-12-2023
 

@@ -12,12 +12,15 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import pt.codeforge.toolertools.internal.DocConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import pt.codeforge.toolertools.internal.DocConstants;
 
+/**
+ * Utility class for handling operations on XML files or XPath expressions.
+ */
 public class XmlHandler {
 
     private static final XPathFactory xPathFactory = XPathFactory.newInstance();
@@ -26,6 +29,13 @@ public class XmlHandler {
         throw new AssertionError("XmlHandler should not be instantiated.");
     }
 
+    /**
+     * Retrieves a string value from the specified XPath expression within the given XML document.
+     *
+     * @param expression The XPath expression.
+     * @param document   The XML document.
+     * @return The string value corresponding to the XPath expression, or an empty string if an error occurs.
+     */
     public static String getStringFromXPath(String expression, Document document) {
         try {
             XPathExpression xPathExpression = createXPathExpression(expression);
@@ -35,6 +45,13 @@ public class XmlHandler {
         }
     }
 
+    /**
+     * Retrieves a NodeList from the specified XPath expression within the given XML document.
+     *
+     * @param expression The XPath expression.
+     * @param document   The XML document.
+     * @return The NodeList corresponding to the XPath expression, or an empty NodeList if an error occurs.
+     */
     public static NodeList getNodeListFromXPath(String expression, Document document) {
         try {
             XPathExpression xPathExpression = createXPathExpression(expression);
@@ -45,6 +62,13 @@ public class XmlHandler {
         }
     }
 
+    /**
+     * Retrieves a Node from the specified XPath expression within the given XML document.
+     *
+     * @param expression The XPath expression.
+     * @param document   The XML document.
+     * @return The Node corresponding to the XPath expression, or a new 'null' Node if an error occurs.
+     */
     public static Node getNodeFromXPath(String expression, Document document) {
         try {
             XPathExpression xPathExpression = createXPathExpression(expression);
@@ -55,6 +79,16 @@ public class XmlHandler {
         }
     }
 
+    /**
+     * Retrieves a Node from the specified XPath expression within the given XML document, with an option to return null
+     * on error.
+     *
+     * @param expression        The XPath expression.
+     * @param document          The XML document.
+     * @param onErrorReturnNull If true, returns null on error; otherwise, returns a new 'null' Node.
+     * @return The Node corresponding to the XPath expression, or null/a new 'null' Node based on the error-handling
+     * option.
+     */
     public static Node getNodeFromXPath(String expression, Document document, boolean onErrorReturnNull) {
         try {
             XPathExpression xPathExpression = createXPathExpression(expression);
@@ -68,6 +102,12 @@ public class XmlHandler {
         }
     }
 
+    /**
+     * Reads an XML file and returns an Optional containing the corresponding Document.
+     *
+     * @param file The XML file to read.
+     * @return Optional containing the Document if successful, otherwise empty Optional.
+     */
     public static Optional<Document> getOptionalDomFromFile(final File file) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

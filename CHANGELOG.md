@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Tested `#getOptionalDomFromFile`
 - JavaDoc to `pt.codeforge.toolertools.xml.XmlHandler`
 
+### Added
+
+- Unit tests in `pt.codeforge.toolertools.xml.XmlHandlerTest`
+    - Tested `#getOptionalDomFromFile`
+- JavaDoc to `pt.codeforge.toolertools.xml.XmlHandler`
+
 ### Changed
 
 - README.md

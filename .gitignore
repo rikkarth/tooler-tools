@@ -35,8 +35,7 @@ build/
 .DS_Store
 
 ### Project ###
-dependency-reduced-pom.xml
+/dependency-reduced-pom.xml
 /pom.xml.versionsBackup
-/pom.xml.releaseBackup
-javadoc
+/javadoc
 /release.properties

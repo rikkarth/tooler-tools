@@ -16,7 +16,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import pt.codeforge.toolertools.internal.DocConstants;
 
 /**
  * Utility class for handling operations on XML files or XPath expressions.

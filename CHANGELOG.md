@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `EnvPathParser` first implementation and JavaDoc
 - `EnvPathParser` unit test initialization
 
+### Changed
+
+- Moved `DocConstants` to `pt/codeforge/toolertools/xml` to make it effectively Package-Private
+
 ## [0.0.5] - 03-12-2023
 
 ### Added

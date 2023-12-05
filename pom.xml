@@ -33,8 +33,7 @@
 
 	<scm>
 		<connection>scm:git:git://github.com/rikkarth/tooler-tools.git</connection>
-		<developerConnection>scm:git:ssh://github.com:rikkarth/tooler-tools.git
-		</developerConnection>
+		<developerConnection>scm:git:git@github.com:rikkarth/tooler-tools.git</developerConnection>
 		<url>http://github.com/rikkarth/tooler-tools/tree/main</url>
 	</scm>
 

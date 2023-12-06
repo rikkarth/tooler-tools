@@ -1,5 +1,7 @@
 package pt.codeforge.toolertools.pathfinder;
 
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +28,9 @@ public class EnvPathParser {
      * Parses the input path by replacing environment variable placeholders with their respective values. Environment
      * variable placeholders are denoted by percent signs ('%') on both ends for Windows and by a dollar sign ('$') at
      * the beginning for Unix-like systems. The method handles both styles. After parsing, the method returns the
-     * normalized path as a String.
+     * normalized path as a String, or if when path string cannot be converted into a {@link Path} because the path
+     * string contains invalid characters, or the path string is invalid for other file system specific reasons, it
+     * returns the path as literally converted.
      *
      * @param input The input path to be parsed. Must not be null.
      * @return The parsed and normalized path as a String.
@@ -42,7 +46,15 @@ public class EnvPathParser {
         parseIfMys(inputCopy, pathComponentsList);
         parseIfUnix(inputCopy, pathComponentsList);
 
-        return Paths.get(inputCopy.get()).toString();
+        return getPathOrDefault(inputCopy);
+    }
+
+    private static String getPathOrDefault(AtomicReference<String> inputCopy) {
+        try {
+            return Paths.get(inputCopy.get()).toString();
+        } catch (InvalidPathException ipe) {
+            return inputCopy.get();
+        }
     }
 
     private static void parseIfMys(AtomicReference<String> inputCopy,

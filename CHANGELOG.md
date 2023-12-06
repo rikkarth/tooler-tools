@@ -10,7 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `EnvPathParser` first implementation and JavaDoc
-- `EnvPathParser` unit test initialization
+- `EnvPathParser` simple unit tests
+- `ParametersProvider` in test package to facilitate testing with several, different parameters.
+
+### Changed
+
+- Reworked GitHub `maven.yml` to only test in non-production branches and compile, test, package and deploy on
+  production branches.
+- README.md Update
 
 ### Changed
 

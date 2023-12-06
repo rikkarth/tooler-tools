@@ -19,8 +19,6 @@ jobs:
     test:
         if: github.ref != 'refs/heads/main'
         runs-on: ubuntu-latest
-        env:
-            HOME: /path/to/test
         steps:
             -   name: Checkout code
                 uses: actions/checkout@v3

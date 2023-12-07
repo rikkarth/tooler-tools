@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.6] - 07-12-2023
+
+### Added
+
+- `EnvPathParser` first implementation and JavaDoc
+- `EnvPathParser` simple unit tests
+- `ParametersProvider` in test package to facilitate testing with several, different parameters.
+
+### Changed
+
+- Reworked GitHub `maven.yml` to only test in non-production branches and compile, test, package and deploy on
+  production branches.
+- README.md Update
+
+### Changed
+
+- Moved `DocConstants` to `pt/codeforge/toolertools/xml` to make it effectively Package-Private
+
 ## [0.0.5] - 03-12-2023
 
 ### Added

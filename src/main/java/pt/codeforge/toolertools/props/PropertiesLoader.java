@@ -8,7 +8,7 @@ import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import pt.codeforge.toolertools.internal.exceptions.PropertiesGenerationException;
 import pt.codeforge.toolertools.internal.exceptions.PropertiesLoadingException;
-import pt.codeforge.toolertools.pathfinder.SystemEnvParser;
+import pt.codeforge.toolertools.pathfinder.EnvPathParser;
 
 public class PropertiesLoader {
 
@@ -21,7 +21,7 @@ public class PropertiesLoader {
         String filePath = this.getOptionalFilePath(propName).orElseThrow(
             () -> new PropertiesLoadingException(getPropertiesLoadingErrorMsg(propName)));
 
-        String propsPath = SystemEnvParser.getEnvPath(filePath);
+        String propsPath = EnvPathParser.getEnvPath(filePath);
 
         return this.getOptionalProperties(propsPath).orElseThrow(
             () -> new PropertiesGenerationException(getInvalidPathToPropErrorMsg(propName, propsPath)));

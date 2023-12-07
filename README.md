@@ -23,12 +23,13 @@ simplify your development tasks.
 </dependency>
 ```
 
-## Featuring
+## Tools
 
 **XmlHandler** retrieves values from a doc when provided with the target XPath.
 
-Why parse through a whole XML just to retrieve one value? We can use the power of tooler-tools and XPath. There's no
-management or error handling.
+**EnvPathParser** parses and expands env path variables into file paths.
+
+![EnvPathParserUseCase.png](docs/resources/EnvPathParserUseCase.png)
 
 ### Example - Get String From XPath
 

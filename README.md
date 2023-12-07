@@ -1,17 +1,9 @@
 # Tooler-Tools
+[![Maven Central](https://img.shields.io/maven-central/v/pt.codeforge/tooler-tools.svg)](https://mvnrepository.com/artifact/pt.codeforge/tooler-tools)
+[![Java CI with Maven](https://github.com/rikkarth/tooler-tools/actions/workflows/maven.yml/badge.svg)](https://github.com/rikkarth/tooler-tools/actions/workflows/maven.yml)
 
 Tooler-Tools: A versatile Java library for backend and CLI developers, offering a growing collection of tools to
 simplify your development tasks.
-
-## Easy Integration
-
-[Sonatype Maven Central Repository][Sonatype Maven Central Repository Link]
-
-[GitHub Packages][GitHub Packages Link]
-
-[Sonatype Maven Central Repository Link]: https://central.sonatype.com/artifact/pt.codeforge/tooler-tools
-
-[GitHub Packages Link]: https://github.com/rikkarth/tooler-tools/packages/2005257
 
 ## Installation
 
@@ -28,6 +20,8 @@ simplify your development tasks.
 **XmlHandler** retrieves values from a doc when provided with the target XPath.
 
 **EnvPathParser** parses and expands env path variables into file paths.
+
+**PropertiesLoader**
 
 ![EnvPathParserUseCase.png](docs/resources/EnvPathParserUseCase.png)
 

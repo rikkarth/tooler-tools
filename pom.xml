@@ -4,7 +4,7 @@
 
 	<groupId>pt.codeforge</groupId>
 	<artifactId>tooler-tools</artifactId>
-	<version>0.0.6-SNAPSHOT</version>
+	<version>0.0.6</version>
 	<packaging>jar</packaging>
 	<name>tooler-tools</name>
 	<description>Versatile library for backend and CLI developers, offers a growing collection of

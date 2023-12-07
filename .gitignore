@@ -36,6 +36,5 @@ build/
 
 ### Project ###
 /dependency-reduced-pom.xml
-/pom.xml.versionsBackup
 /javadoc
 /release.properties

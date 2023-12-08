@@ -79,6 +79,7 @@ jobs:
                     nexus_password: ${{ secrets.nexus_password }}
 
     publish-github:
+        if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         permissions:
             contents: write
@@ -91,6 +92,10 @@ jobs:
                     java-version: '8'
                     distribution: 'corretto'
             -   name: Publish to GitHub Packages
-                run: mvn --batch-mode deploy -Pgithub
+                with:
+                    gpg_private_key: ${{ secrets.gpg_private_key }}
+                    gpg_passphrase: ${{ secrets.gpg_passphrase }}
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                run: mvn --batch-mode deploy -Pgithub
+

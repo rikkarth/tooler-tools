@@ -70,6 +70,7 @@ jobs:
             -   name: Release Maven package
                 uses: samuelmeuli/action-maven-publish@v1.4.0
                 with:
+                    maven_profiles: ossrh
                     gpg_private_key: ${{ secrets.gpg_private_key }}
                     gpg_passphrase: ${{ secrets.gpg_passphrase }}
                     nexus_username: ${{ secrets.nexus_username }}
@@ -80,6 +81,6 @@ jobs:
                     java-version: '8'
                     distribution: 'corretto'
             -   name: Publish to GitHub Packages
-                run: mvn --batch-mode deploy
+                run: mvn --batch-mode deploy -Pgithub
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

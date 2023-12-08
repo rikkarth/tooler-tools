@@ -84,7 +84,8 @@ jobs:
                     gpg_private_key: ${{ secrets.gpg_private_key }}
                     gpg_passphrase: ${{ secrets.gpg_passphrase }}
                     nexus_username: ${{ secrets.nexus_username }}
-                    nexus_password: ${{ secrets.nexus_password }} || true
+                    nexus_password: ${{ secrets.nexus_password }}
+                continue-on-error: true
 
     publish-github:
         if: github.ref == 'refs/heads/main'
@@ -109,5 +110,6 @@ jobs:
                     cache: maven
             -   name: Run GitHub Deploy
                 run: mvn --batch-mode deploy -Pgithub
+                continue-on-error: true
                 env:
-                    GITHUB_TOKEN: ${{ github.token }} || true
+                    GITHUB_TOKEN: ${{ github.token }}

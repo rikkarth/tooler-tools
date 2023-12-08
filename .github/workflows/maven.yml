@@ -29,3 +29,32 @@ jobs:
                     cache: maven
             -   name: Test with Maven
                 run: mvn -B --update-snapshots clean test
+
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            -   uses: actions/checkout@v4
+            -   name: Set up Java for publishing to Maven Central Repository
+                uses: actions/setup-java@v3
+                with:
+                    java-version: '8'
+                    distribution: 'corretto'
+            -   name: Release Maven package
+                uses: samuelmeuli/action-maven-publish@v1.4.0
+                with:
+                    gpg_private_key: ${{ secrets.gpg_private_key }}
+                    gpg_passphrase: ${{ secrets.gpg_passphrase }}
+                    nexus_username: ${{ secrets.nexus_username }}
+                    nexus_password: ${{ secrets.nexus_password }}
+            -   name: Set up Java for publishing to GitHub Packages
+                uses: actions/setup-java@v3
+                with:
+                    java-version: '8'
+                    distribution: 'corretto'
+            -   name: Publish to GitHub Packages
+                run: mvn --batch-mode deploy
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

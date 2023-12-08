@@ -54,7 +54,7 @@ jobs:
                     git tag -a "$VERSION" -m "Release $VERSION"
                     git push origin "$VERSION"
 
-    publish:
+    publish-nexus:
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         permissions:
@@ -75,6 +75,14 @@ jobs:
                     gpg_passphrase: ${{ secrets.gpg_passphrase }}
                     nexus_username: ${{ secrets.nexus_username }}
                     nexus_password: ${{ secrets.nexus_password }}
+
+    publish-github:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            packages: write
+        steps:
+            -   uses: actions/checkout@v4
             -   name: Set up Java for publishing to GitHub Packages
                 uses: actions/setup-java@v3
                 with:

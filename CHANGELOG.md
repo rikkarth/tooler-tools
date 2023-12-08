@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README.md
 - pom.xml
 - PropertiesLoader Improved
+- Configured `maven.yml` to create tag based on `pom.xml` version.
+- Configured `maven.yml` to deploy release to mvn central and GitHub packages.
 
 ## [0.0.6] - 07-12-2023
 

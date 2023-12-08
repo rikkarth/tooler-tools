@@ -1,6 +1,6 @@
-package pt.codeforge.toolertools.internal.exceptions;
+package pt.codeforge.toolertools.props;
 
-public class PropertiesLoadingException extends RuntimeException {
+class PropertiesLoadingException extends RuntimeException {
 
     public PropertiesLoadingException(String message, Throwable cause) {
         super(message, cause);

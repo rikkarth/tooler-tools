@@ -1,17 +1,10 @@
 # Tooler-Tools
 
+[![Maven Central](https://img.shields.io/maven-central/v/pt.codeforge/tooler-tools.svg)](https://mvnrepository.com/artifact/pt.codeforge/tooler-tools)
+[![Java CI with Maven](https://github.com/rikkarth/tooler-tools/actions/workflows/maven.yml/badge.svg)](https://github.com/rikkarth/tooler-tools/actions/workflows/maven.yml)
+
 Tooler-Tools: A versatile Java library for backend and CLI developers, offering a growing collection of tools to
 simplify your development tasks.
-
-## Easy Integration
-
-[Sonatype Maven Central Repository][Sonatype Maven Central Repository Link]
-
-[GitHub Packages][GitHub Packages Link]
-
-[Sonatype Maven Central Repository Link]: https://central.sonatype.com/artifact/pt.codeforge/tooler-tools
-
-[GitHub Packages Link]: https://github.com/rikkarth/tooler-tools/packages/2005257
 
 ## Installation
 
@@ -29,31 +22,77 @@ simplify your development tasks.
 
 **EnvPathParser** parses and expands env path variables into file paths.
 
-![EnvPathParserUseCase.png](docs/resources/EnvPathParserUseCase.png)
+**PropertiesLoader** loads properties from various sources, such as files and system properties,
+with support for environment variable expansion in file paths.
 
 ### Example - Get String From XPath
 
-```
-String pages = getStringFromXPath("/root/path/to/element", doc);
+*XML Example*
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.com/test">
+    <test-element>Test Value</test-element>
+    <empty-element></empty-element>
+    <self-closing/>
+    <element-group>
+        <nested-element>Item 1</nested-element>
+        <nested-element>Item 2</nested-element>
+        <nested-element>Item 3</nested-element>
+    </element-group>
+</root>
 ```
 
-#### Possible outcomes:
+*XmlHandler#getStringFromXPath use-case*
 
-1. `pages` is never null;
-2. `pages` can be empty if value can't be found;
-3. `pages` will return value.
+```java
+import pt.codeforge.toolertools.xml.XmlHandler;
 
+class TestClass {
+
+    @Test
+    void test() {
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
+
+        String textElement = XmlHandler.getStringFromXPath("/root/test-element/text()", doc);
+
+        System.out.println(textElement);
+    }
+}
 ```
-String pages = getStringFromXPath("/root/path/to/various-elements/text()", doc) // Returns First Element;
-String pages = getStringFromXPath("/root/path/to/various-elements[1]/text()", doc) // Returns First Element;
-String pages = getStringFromXPath("/root/path/to/various-elements[2]/text()", doc) // Returns Second Element;
-String pages = getStringFromXPath("/root/path/to/various-elements[3]/text()", doc) // Returns Third Element;
+
+*Expected Output*
+
+```text
+Test Value
+```
+
+*Other XPath Applications*
+
+```java
+String nesteElement = XmlHandler.getStringFromXPath("/root/element-group/nested-element/text()",doc) // Returns First Element;
+String nesteElement1 = XmlHandler.getStringFromXPath("/root/element-group/nested-element[1]/text()",doc) // Returns First Element;
+String nesteElement2 = XmlHandler.getStringFromXPath("/root/element-group/nested-element[2]/text()",doc) // Returns Second Element;
+String nesteElement3 = XmlHandler.getStringFromXPath("/root/element-group/nested-element[3]/text()",doc) // Returns Third Element;
 ```
 
 ### Example - Get NodeList From XPath
-```
-NodeList elements = getStringFromXPath("/root/path/to/various-elements", doc);
+Returns 0 nodes if nothing found, and 'n' nodes if any found.
+```java
+import pt.codeforge.toolertools.xml.XmlHandler;
 
-elements.getLength() // returns 0 if nothing found, and 'n' if something found.
+class TestClass() {
+
+    void test() {
+        NodeList elements = XmlHandler.getNodeListFromXPath("/root/element-group", doc);
+
+        System.out.println(elements.getLength());
+    }
+}
 ```
 
+*Expected output*
+
+```
+3
+```

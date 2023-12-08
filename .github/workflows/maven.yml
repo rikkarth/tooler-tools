@@ -47,18 +47,11 @@ jobs:
                 run: |
                     git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
                     git config --global user.name "${GITHUB_ACTOR}"
-            -   name: Create Release
-                env:
-                    GITHUB_TOKEN: ${{ github.token }}
-                run: |
-                    VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-                    echo "Creating release for version $VERSION"
-                    if git show-ref --tags --verify "refs/tags/$VERSION"; then
-                        echo "Tag $VERSION exists. Skipping tag creation."
+                    if git rev-parse "$VERSION" >/dev/null 2>&1; then
+                        echo "Tag already exists. Skipping tag creation."
                     else
-                        echo "Tag $VERSION does not exist"
                         git tag -a "$VERSION" -m "Release $VERSION"
-                        git push origin "$VERSION"
+                        git push origin "$VERSION" || echo "Ignoring push error."
                     fi
 
     publish-nexus:
@@ -82,7 +75,7 @@ jobs:
                     gpg_private_key: ${{ secrets.gpg_private_key }}
                     gpg_passphrase: ${{ secrets.gpg_passphrase }}
                     nexus_username: ${{ secrets.nexus_username }}
-                    nexus_password: ${{ secrets.nexus_password }} || true
+                    nexus_password: ${{ secrets.nexus_password }}
 
     publish-github:
         if: github.ref == 'refs/heads/main'
@@ -108,4 +101,4 @@ jobs:
             -   name: Run GitHub Deploy
                 run: mvn --batch-mode deploy -Pgithub
                 env:
-                    GITHUB_TOKEN: ${{ github.token }} || true
+                    GITHUB_TOKEN: ${{ github.token }}

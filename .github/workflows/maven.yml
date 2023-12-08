@@ -51,11 +51,11 @@ jobs:
                 run: |
                     VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                     echo "Creating release for version $VERSION"
-                    git tag -a "v$VERSION" -m "Release $VERSION"
+                    git tag -a "$VERSION" -m "Release $VERSION"
                     git push origin "$VERSION"
 
     publish:
-        if: github.repository == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         permissions:
             contents: read

@@ -17,7 +17,7 @@ on:
 jobs:
 
     test:
-        if: github.repository != 'refs/heads/main'
+        if: github.event_name == 'push' && github.event_name == 'pull_request' && github.ref != 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout code
@@ -51,7 +51,7 @@ jobs:
                     git push origin "$VERSION"
 
     publish:
-        if: github.repository == 'refs/heads/main'
+        if: github.event_name == 'push' && github.repository == 'refs/heads/main'
         runs-on: ubuntu-latest
         permissions:
             contents: read

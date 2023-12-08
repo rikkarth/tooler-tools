@@ -86,16 +86,20 @@ jobs:
             packages: write
         steps:
             -   uses: actions/checkout@v4
+            -   name: Import GPG key
+                uses: crazy-max/ghaction-import-gpg@v6
+                with:
+                    gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+                    passphrase: ${{ secrets.GPG_PASSPHRASE }}
+                    git_user_signingkey: true
+                    git_commit_gpgsign: true
             -   name: Set up Java for publishing to GitHub Packages
                 uses: actions/setup-java@v3
                 with:
                     java-version: '8'
                     distribution: 'corretto'
-            -   name: Publish to GitHub Packages
-                with:
-                    gpg_private_key: ${{ secrets.gpg_private_key }}
-                    gpg_passphrase: ${{ secrets.gpg_passphrase }}
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            -   name: Run GitHub Deploy
                 run: mvn --batch-mode deploy -Pgithub
 

@@ -48,13 +48,15 @@ jobs:
                     git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
                     git config --global user.name "${GITHUB_ACTOR}"
             -   name: Create Release
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: |
                     VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                     echo "Creating release for version $VERSION"
                     git tag -a "$VERSION" -m "Release $VERSION"
                     git push origin "$VERSION"
 
-    publish:
+    publish-nexus:
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         permissions:
@@ -75,12 +77,25 @@ jobs:
                     gpg_passphrase: ${{ secrets.gpg_passphrase }}
                     nexus_username: ${{ secrets.nexus_username }}
                     nexus_password: ${{ secrets.nexus_password }}
+
+    publish-github:
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            packages: write
+        steps:
+            -   uses: actions/checkout@v4
             -   name: Set up Java for publishing to GitHub Packages
                 uses: actions/setup-java@v3
                 with:
                     java-version: '8'
                     distribution: 'corretto'
             -   name: Publish to GitHub Packages
-                run: mvn --batch-mode deploy -Pgithub
+                with:
+                    gpg_private_key: ${{ secrets.gpg_private_key }}
+                    gpg_passphrase: ${{ secrets.gpg_passphrase }}
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                run: mvn --batch-mode deploy -Pgithub
+

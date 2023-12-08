@@ -98,8 +98,6 @@ jobs:
                 with:
                     java-version: '8'
                     distribution: 'corretto'
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             -   name: Run GitHub Deploy
                 run: mvn --batch-mode deploy -Pgithub
 

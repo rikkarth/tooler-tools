@@ -6,7 +6,7 @@
 
 	<groupId>pt.codeforge</groupId>
 	<artifactId>tooler-tools</artifactId>
-	<version>0.0.6</version>
+	<version>0.0.7</version>
 	<packaging>jar</packaging>
 	<name>tooler-tools</name>
 	<description>Versatile library for backend and CLI developers, offers a growing collection of
@@ -35,7 +35,7 @@
 		<connection>scm:git:git://github.com/rikkarth/tooler-tools.git</connection>
 		<developerConnection>scm:git:git@github.com:rikkarth/tooler-tools.git</developerConnection>
 		<url>http://github.com/rikkarth/tooler-tools/tree/main</url>
-		<tag>tooler-tools-0.0.6</tag>
+		<tag>${project.artifactId}-${project.version}</tag>
 	</scm>
 
 	<distributionManagement>

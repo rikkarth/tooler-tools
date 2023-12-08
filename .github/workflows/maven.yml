@@ -53,7 +53,7 @@ jobs:
                 run: |
                     VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
                     echo "Creating release for version $VERSION"
-                    if git show-ref --tags --verify --quiet "refs/tags/$VERSION"; then
+                    if git show-ref --tags --verify --quiet "refs/tags/${VERSION}"; then
                         echo "Tag $VERSION exists. Skipping tag creation."
                     else
                         echo "Tag $VERSION does not exist"

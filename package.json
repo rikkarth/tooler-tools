@@ -8,10 +8,10 @@
     "scripts": {
         "test": "mvn -B --update-snapshots clean test",
         "prepare": "husky install",
-        "release": "standard-version",
-        "release:minor": "standard-version -t '' --release-as minor",
-        "release:patch": "standard-version -t '' --release-as patch",
-        "release:major": "standard-version -t '' --release-as major"
+        "release": "standard-version && mvn versions:commit",
+        "release:minor": "standard-version -t '' --release-as minor && mvn versions:commit",
+        "release:patch": "standard-version -t '' --release-as patch && mvn versions:commit",
+        "release:major": "standard-version -t '' --release-as major && mvn versions:commit"
     },
     "repository": {
         "type": "git",

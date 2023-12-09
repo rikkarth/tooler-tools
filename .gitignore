@@ -38,3 +38,4 @@ build/
 /dependency-reduced-pom.xml
 /javadoc
 /release.properties
+/node_modules/

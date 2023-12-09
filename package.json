@@ -1,0 +1,37 @@
+{
+  "name": "pt.codeforge.tooler-tools",
+  "version": "0.0.7",
+  "description": "Versatile library for backend and CLI developers, offers a growing collection of",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "mvn -B --update-snapshots clean test",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rikkarth/tooler-tools.git"
+  },
+  "keywords": [
+    "tooler-tools",
+    "rikkarth",
+    "java",
+    "backend",
+    "library",
+    "lib"
+  ],
+  "author": "Ricardo Mendes",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/rikkarth/tooler-tools/issues"
+  },
+  "homepage": "https://github.com/rikkarth/tooler-tools#readme",
+  "devDependencies": {
+    "husky": "^8.0.0"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3"
+  }
+}

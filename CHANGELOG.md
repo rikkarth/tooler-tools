@@ -1,7 +1,15 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.0.8](https://github.com/mokkapps/changelog-generator-demo/compare/0.0.7...0.0.8) (2023-12-10)
+
+
+### Features
+
+* automated semantic versioning for pom.xml and package.json ([2583086](https://github.com/mokkapps/changelog-generator-demo/commits/2583086932dc29e9ed3338faaf66826f3a5527ef))
+* initial auto-generate CHANGELOG.md setup ([6653871](https://github.com/mokkapps/changelog-generator-demo/commits/665387170b9b0d5afe0c5cae50250bda95cf7d02))
+* installed versions-maven-plugin ([db31f5a](https://github.com/mokkapps/changelog-generator-demo/commits/db31f5a4861149ab9c09ef84ff0df1cab272075b))
 
 ## [0.0.7] - Dev
 

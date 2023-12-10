@@ -1,6 +1,6 @@
 {
     "name": "pt.codeforge.tooler-tools",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "description": "Versatile library for backend and CLI developers, offers a growing collection of",
     "directories": {
         "doc": "docs"

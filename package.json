@@ -1,6 +1,6 @@
 {
     "name": "pt.codeforge.tooler-tools",
-    "version": "0.0.8",
+    "version": "0.0.7",
     "description": "Versatile library for backend and CLI developers, offers a growing collection of",
     "directories": {
         "doc": "docs"
@@ -9,7 +9,7 @@
         "test": "mvn -B --update-snapshots clean test",
         "update:logs": "npm run release -- --skip.bump --skip.tag --skip.commit",
         "prepare": "husky install",
-        "release": "standard-version -s -t ''",
+        "release": "standard-version",
         "release:minor": "mvn build-helper:parse-version versions:set@minor && npm run commit-pom && standard-version -s -t '' --release-as minor",
         "release:patch": "mvn build-helper:parse-version versions:set@patch && npm run commit-pom && standard-version -s -t '' --release-as patch",
         "release:major": "mvn build-helper:parse-version versions:set@major && npm run commit-pom && standard-version -s -t '' --release-as major",

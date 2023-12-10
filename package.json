@@ -9,9 +9,10 @@
         "test": "mvn -B --update-snapshots clean test",
         "prepare": "husky install",
         "release": "standard-version -s -t ''",
-        "release:minor": "mvn build-helper:parse-version versions:set@minor && standard-version -s -t '' --release-as minor",
-        "release:patch": "mvn build-helper:parse-version versions:set@patch && standard-version -s -t '' --release-as patch",
-        "release:major": "mvn build-helper:parse-version versions:set@major && standard-version -s -t '' --release-as major"
+        "release:minor": "mvn build-helper:parse-version versions:set@minor && npm run commit-pom && standard-version -s -t '' --release-as minor",
+        "release:patch": "mvn build-helper:parse-version versions:set@patch && npm run commit-pom && standard-version -s -t '' --release-as patch",
+        "release:major": "mvn build-helper:parse-version versions:set@major && npm run commit-pom && standard-version -s -t '' --release-as major",
+        "commit-pom": "git add pom.xml && git commit -m \"build: pom.xml update\""
     },
     "repository": {
         "type": "git",

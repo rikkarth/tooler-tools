@@ -7,6 +7,7 @@
     },
     "scripts": {
         "test": "mvn -B --update-snapshots clean test",
+        "update:logs": "npm run release -- --skip.bump --skip.tag --skip.commit",
         "prepare": "husky install",
         "release": "standard-version -s -t ''",
         "release:minor": "mvn build-helper:parse-version versions:set@minor && npm run commit-pom && standard-version -s -t '' --release-as minor",

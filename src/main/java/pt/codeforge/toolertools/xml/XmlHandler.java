@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
 
 /**
  * Utility class for handling operations on XML files or XPath expressions.
+ * This class provides methods for querying and manipulating XML documents using XPath expressions.
  */
 public class XmlHandler {
 

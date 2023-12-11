@@ -31,6 +31,10 @@
         {
             "type": "test",
             "hidden": true
+        },
+        {
+            "tpe": "build",
+            "hidden": true
         }
     ],
     "commitUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/commits/{{hash}}",

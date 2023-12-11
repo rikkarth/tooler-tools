@@ -2,16 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.0.8](https://github.com/mokkapps/changelog-generator-demo/compare/v0.1.0...v0.0.8) (2023-12-09)
-
-## 0.1.0 (2023-12-09)
-
-
-### Features
-
-* initial auto-generate CHANGELOG.md setup ([6653871](https://github.com/mokkapps/changelog-generator-demo/commits/665387170b9b0d5afe0c5cae50250bda95cf7d02))
-
-## [0.0.7] - Dev
+### 0.0.7 - (08-12-2023)
 
 ### Added
 
@@ -26,7 +17,7 @@ All notable changes to this project will be documented in this file. See [standa
 - Configured `maven.yml` to create tag based on `pom.xml` version.
 - Configured `maven.yml` to deploy release to mvn central and GitHub packages.
 
-## [0.0.6] - 07-12-2023
+### 0.0.6 - (07-12-2023)
 
 ### Added
 
@@ -44,7 +35,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 - Moved `DocConstants` to `pt/codeforge/toolertools/xml` to make it effectively Package-Private
 
-## [0.0.5] - 03-12-2023
+### 0.0.5 - (03-12-2023)
 
 ### Added
 
@@ -69,14 +60,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 - Maven Wrapper for smaller binary. Unecessary since *"this is wibrary"*.
 
-## [0.0.4] - 02-12-2023
+### 0.0.4 - (02-12-2023)
 
 ### Changed
 
 - Package name change to reflect new org. From `org.tooler-tools` to `pt.codeforge`.
 - Domain `pt.codeforge` now redirects to this repository - `https://github.com/rikkarth/tooler-tools`.
 
-## [0.0.3] - 01-12-2023
+### 0.0.3 - (01-12-2023)
 
 ### Added
 

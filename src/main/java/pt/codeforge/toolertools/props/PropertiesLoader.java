@@ -11,7 +11,7 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import pt.codeforge.toolertools.pathfinder.EnvPathParser;
 
 /**
- * Utility class for loading properties from various sources, such as files and system properties, with support for
+ * Utility class for loading properties from various sources, such as file paths and system properties, with support for
  * environment variable expansion in file paths.
  *
  * <p>Instances of this class provide methods to load properties based on different inputs, including
@@ -30,6 +30,8 @@ public class PropertiesLoader {
     private PropertiesLoader() {
         throw new AssertionError("PropertiesLoader should not be instantiated.");
     }
+
+    private static final String INPUT_NOT_NULL_MSG = "Input cannot be null.";
 
     /**
      * Loads properties from the specified property name, expanding environment variable placeholders in the associated
@@ -57,6 +59,7 @@ public class PropertiesLoader {
      * @param path The path to the properties file. Must not be null.
      * @return The loaded properties.
      * @throws PropertiesLoadingException If an error occurs during loading.
+     * @throws IllegalArgumentException   If input is null.
      * @see EnvPathParser#getEnvPath(String)
      */
     public static Properties loadFromPath(String path) {
@@ -73,9 +76,13 @@ public class PropertiesLoader {
      * @param path The {@code java.nio.file.Path} to the properties file. Must not be null.
      * @return The loaded properties.
      * @throws PropertiesLoadingException If an error occurs during loading.
+     * @throws IllegalArgumentException   If input is null.
      * @see EnvPathParser#getEnvPath(String)
      */
     public static Properties loadFromPath(Path path) {
+        if (path == null) {
+            throw new IllegalArgumentException(INPUT_NOT_NULL_MSG);
+        }
 
         String propsPath = EnvPathParser.getEnvPath(path.toString());
 
@@ -89,9 +96,13 @@ public class PropertiesLoader {
      * @param file The {@code java.io.File} representing the properties file. Must not be null.
      * @return The loaded properties.
      * @throws PropertiesLoadingException If an error occurs during loading.
+     * @throws IllegalArgumentException   If input is null.
      * @see EnvPathParser#getEnvPath(String)
      */
     public static Properties loadFromFile(File file) {
+        if (file == null) {
+            throw new IllegalArgumentException(INPUT_NOT_NULL_MSG);
+        }
 
         String propsPath = EnvPathParser.getEnvPath(file.getAbsolutePath());
 

@@ -34,11 +34,9 @@
     },
     "homepage": "https://github.com/rikkarth/tooler-tools#readme",
     "devDependencies": {
+        "@commitlint/cli": "^18.4.3",
+        "@commitlint/config-conventional": "^18.4.3",
         "husky": "^8.0.0",
         "standard-version": "^9.5.0"
-    },
-    "dependencies": {
-        "@commitlint/cli": "^18.4.3",
-        "@commitlint/config-conventional": "^18.4.3"
     }
 }

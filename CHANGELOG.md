@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.0.8 (2023-12-14)
+
+
+### Features
+
+* add update:logs command to package.json ([bebe39a](https://github.com/mokkapps/changelog-generator-demo/commits/bebe39a192eaf4402215f97b62ee66f9e7b52623))
+* automated semantic versioning for pom.xml and package.json ([2583086](https://github.com/mokkapps/changelog-generator-demo/commits/2583086932dc29e9ed3338faaf66826f3a5527ef))
+* initial auto-generate CHANGELOG.md setup ([6653871](https://github.com/mokkapps/changelog-generator-demo/commits/665387170b9b0d5afe0c5cae50250bda95cf7d02))
+* installed versions-maven-plugin ([db31f5a](https://github.com/mokkapps/changelog-generator-demo/commits/db31f5a4861149ab9c09ef84ff0df1cab272075b))
+* update README.md ([f99c2b4](https://github.com/mokkapps/changelog-generator-demo/commits/f99c2b49f0d4e27c9c98f2581a6ad22d18c37374))
+
+
+### Changed
+
+* add new type to .versionrc ([c2fbd80](https://github.com/mokkapps/changelog-generator-demo/commits/c2fbd8043d8fbe4739e13b13aace4d1b5ab849c8))
+
 ### 0.0.7 - (08-12-2023)
 
 ### Added

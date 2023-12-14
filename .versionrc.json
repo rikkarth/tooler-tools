@@ -9,6 +9,10 @@
             "section": "Bug Fixes"
         },
         {
+            "type": "change",
+            "section": "Changed"
+        },
+        {
             "type": "chore",
             "hidden": true
         },

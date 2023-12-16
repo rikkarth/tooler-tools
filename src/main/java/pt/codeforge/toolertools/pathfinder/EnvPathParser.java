@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Utility class for parsing and expanding environment variables in file paths. This class provides static methods for
+ * Utility class for parsing and expanding environment variables in file paths. This class provides a static method for
  * parsing input paths, replacing environment variable placeholders with their respective values on both Windows and
  * Unix-like systems.
  *

@@ -1,8 +1,3 @@
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
 ### IntelliJ IDEA ###
 .idea/
 *.iws
@@ -39,3 +34,8 @@ build/
 /javadoc
 /release.properties
 /node_modules/
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+/src/test/resources/output/

@@ -13,13 +13,14 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Utility class for handling operations on XML files or XPath expressions.
- * This class provides methods for querying and manipulating XML documents using XPath expressions.
+ * Utility class for handling operations on XML files or XPath expressions. This class provides methods for querying and
+ * manipulating XML documents using XPath expressions.
  */
 public class XmlHandler {
 
@@ -73,9 +74,8 @@ public class XmlHandler {
         try {
             XPathExpression xPathExpression = createXPathExpression(expression);
             return Objects.requireNonNull((Node) xPathExpression.evaluate(document, XPathConstants.NODE));
-        } catch (XPathExpressionException | NullPointerException e) {
-            Document doc = createEmptyDocument();
-            return doc.createElement("null");
+        } catch (XPathExpressionException | NullPointerException | ClassCastException e) {
+            return getEmptyElement();
         }
     }
 
@@ -97,9 +97,33 @@ public class XmlHandler {
             if (onErrorReturnNull) {
                 return null;
             }
-            Document doc = createEmptyDocument();
-            return doc.createElement("null");
+            return getEmptyElement();
         }
+    }
+
+    /**
+     * Retrieves a Node from the specified XPath expression within the given XML document.
+     *
+     * @param expression The XPath expression.
+     * @param document   The XML document.
+     * @return The Element corresponding to the XPath expression, or a new 'null' Element if an error occurs.
+     * @throws IllegalStateException if expression is not type Node.
+     */
+    public static Element getElementFromXPath(String expression, Document document) {
+        return (Element) getNodeFromXPath(expression, document);
+    }
+
+    /**
+     * Retrieves an ELement from the specified XPath expression within the given XML document, with an option to return
+     * null on error.
+     *
+     * @param expression        The XPath expression.
+     * @param document          The XML document.
+     * @param onErrorReturnNull If true, returns null on error; otherwise, returns a new 'null' Node.
+     * @return The Element corresponding to the XPath expression, or null/a new 'null' Node.
+     */
+    public static Element getElementFromXPath(String expression, Document document, boolean onErrorReturnNull) {
+        return (Element) getNodeFromXPath(expression, document, onErrorReturnNull);
     }
 
     /**
@@ -125,6 +149,11 @@ public class XmlHandler {
         } catch (ParserConfigurationException | SAXException | IOException e) {
             return Optional.empty();
         }
+    }
+
+    private static Element getEmptyElement() {
+        Document doc = createEmptyDocument();
+        return doc.createElement("null");
     }
 
     private static XPathExpression createXPathExpression(String expression) throws XPathExpressionException {

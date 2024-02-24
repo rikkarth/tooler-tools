@@ -13,12 +13,14 @@ import java.util.Optional;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 class XmlHandlerTest {
 
     private static final String TEST_ELEMENT_TEXT = "//test-element/text()";
+    private static final String TEST_ELEMENT_NODE = "//test-element";
     private static final String NESTED_ELEMENT_TEXT = "//nested-element/text()";
     private static final String EMPTY_ELEMENT_TEXT = "//empty-element/text()";
     private static final String SELF_CLOSING_TEXT = "//self-closing/text()";
@@ -96,6 +98,29 @@ class XmlHandlerTest {
 
         assertEquals(Document.ELEMENT_NODE, groupElement.getNodeType(), "Should be element node");
         assertEquals(expectedNodeName, groupElement.getNodeName(), "Should be element node");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = "src/test/resources/test_resource_1.xml")
+    void givenCompliantparams_testGetElementFromXPath_shouldReturnValidResults(String input){
+        Document doc = XmlHandler.getOptionalDomFromFile(new File(input)).orElseThrow(IllegalStateException::new);
+
+        Element groupElement = XmlHandler.getElementFromXPath(ELEMENT_GROUP_NODE, doc);
+        Element testElement = XmlHandler.getElementFromXPath(TEST_ELEMENT_NODE, doc);
+        Element malformedElement = XmlHandler.getElementFromXPath(MALFORMED_X_PATH, doc, true);
+
+        String expectedGroupNodeName = "element-group";
+        String expectedTestNodeName = "test-element";
+        String expectedAttribute = "test_attr";
+
+        assertNull(malformedElement);
+
+        assertEquals(Document.ELEMENT_NODE, groupElement.getNodeType(), "Should be element node");
+        assertEquals(expectedGroupNodeName, groupElement.getNodeName(), "Should be element-group");
+
+        assertEquals(Document.ELEMENT_NODE, testElement.getNodeType(), "Should be test element node");
+        assertEquals(expectedTestNodeName, testElement.getNodeName(), "Should be test element");
+        assertEquals(expectedAttribute, testElement.getAttribute("type"));
     }
 
     @ParameterizedTest

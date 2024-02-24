@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns="http://example.com/test">
-	<test-element>Test Value</test-element>
+	<test-element type="test_attr" >Test Value</test-element>
 	<empty-element></empty-element>
 	<self-closing/>
 	<element-group>

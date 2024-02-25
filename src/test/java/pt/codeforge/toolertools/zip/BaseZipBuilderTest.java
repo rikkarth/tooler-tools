@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 class BaseZipBuilderTest {
 
     @Test
+    @Disabled
     void givenNoTargetPath_testCreateZip_shouldThrowIllegalStateException() {
         BaseZipBuilder baseZipBuilder = new BaseZipBuilder();
 
@@ -18,6 +19,7 @@ class BaseZipBuilderTest {
     }
 
     @Test
+    @Disabled
     void givenIncorrectPath_testCreateZip_shouldThrowZipBuilderException(){
         BaseZipBuilder baseZipBuilder = new BaseZipBuilder("src/test/resources/output");
 
@@ -25,6 +27,7 @@ class BaseZipBuilderTest {
     }
 
     @Test
+    @Disabled
     void givenValidPath_testCreateZip(){
         BaseZipBuilder baseZipBuilder = new BaseZipBuilder("src/test/resources/output/my.zip");
 

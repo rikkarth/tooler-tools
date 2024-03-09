@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -39,12 +38,6 @@ public class BaseZipBuilder implements ZipBuilder {
 
         try (FileOutputStream fos = new FileOutputStream(this.targetPath.toString());
             ZipOutputStream zos = new ZipOutputStream(fos, StandardCharsets.UTF_8)) {
-
-           /* if(this.files.get(0).isDirectory()){
-                String name = this.files.get(0).getAbsolutePath() + File.separator + "output\\test2.properties";
-                System.out.println(name);
-                insertInZip(new File(name), zos);
-            }*/
 
             this.files.forEach(file -> insertInZip(file, zos));
         } catch (IOException ioe) {
@@ -90,13 +83,38 @@ public class BaseZipBuilder implements ZipBuilder {
     }
 
     private void insertInZip(File file, ZipOutputStream zos) {
+        insertInZip(file, zos, "");
+    }
+
+    private void insertInZip(File file, ZipOutputStream zos, String dirName) {
         try {
-            ZipEntry zipEntry = new ZipEntry(file.getName());
-            zos.putNextEntry(zipEntry);
-            Files.copy(file.getAbsoluteFile().toPath(), zos);
-            zos.closeEntry();
+            if (file.isDirectory()) {
+                insertDirectory(file, zos, dirName);
+            } else {
+                insertFile(file, zos, dirName);
+            }
         } catch (IOException ioe) {
             throw new ZipBuilderException("unable to add to zip", ioe);
         }
+    }
+
+    private void insertFile(File file, ZipOutputStream zos, String parentDirName) throws IOException {
+        String entryName = ZipHelper.getEntryName(file, parentDirName);
+
+        ZipEntry zipEntry = new ZipEntry(entryName);
+        zos.putNextEntry(zipEntry);
+        Files.copy(file.toPath(), zos);
+        zos.closeEntry();
+    }
+
+    private void insertDirectory(File dir, ZipOutputStream zos, String parentDirName) throws IOException {
+        String entryName = ZipHelper.getEntryName(dir, parentDirName);
+        ZipEntry zipEntry = new ZipEntry(entryName);
+
+        zos.putNextEntry(zipEntry);
+
+        ZipHelper.getListFiles(dir).forEach(file -> insertInZip(file, zos, entryName));
+
+        zos.closeEntry();
     }
 }

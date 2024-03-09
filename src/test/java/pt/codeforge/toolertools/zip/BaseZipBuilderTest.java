@@ -1,8 +1,10 @@
 package pt.codeforge.toolertools.zip;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Disabled;
@@ -11,7 +13,6 @@ import org.junit.jupiter.api.Test;
 class BaseZipBuilderTest {
 
     @Test
-    @Disabled
     void givenNoTargetPath_testCreateZip_shouldThrowIllegalStateException() {
         BaseZipBuilder baseZipBuilder = new BaseZipBuilder();
 
@@ -19,23 +20,24 @@ class BaseZipBuilderTest {
     }
 
     @Test
-    @Disabled
-    void givenIncorrectPath_testCreateZip_shouldThrowZipBuilderException(){
+    void givenIncorrectPath_testCreateZip_shouldThrowZipBuilderException() {
         BaseZipBuilder baseZipBuilder = new BaseZipBuilder("src/test/resources/output");
 
         assertThrows(ZipBuilderException.class, baseZipBuilder::createZip);
     }
 
     @Test
-    @Disabled
-    void givenValidPath_testCreateZip(){
-        BaseZipBuilder baseZipBuilder = new BaseZipBuilder("src/test/resources/output/my.zip");
+    void givenValidPathAndNoFile_testCreateZip_shouldCreateEmptyZip() throws IOException {
+        String targetPath = "src/test/resources/output/my.zip";
+        BaseZipBuilder baseZipBuilder = new BaseZipBuilder(targetPath);
 
         baseZipBuilder.createZip();
+
+        assertTrue(ZipHelper.isEmptyZip(targetPath), "zip output file should be empty");
     }
 
     @Test
-    @Disabled("wip")
+    @Disabled
     void test() {
         BaseZipBuilder zipBuilder = new BaseZipBuilder().setTargetPath("src/test/resources/output/my.zip");
 
@@ -46,7 +48,7 @@ class BaseZipBuilderTest {
         );*/
 
         List<File> files = Arrays.asList(
-            new File("src/test/resources/")
+            new File("src/test/resources/zipThisDir/")
         );
 
         zipBuilder.addAllToZip(files);

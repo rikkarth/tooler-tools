@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EnvPathParser {
 
     private EnvPathParser() {
-        throw new AssertionError("EnvPathParser should not be instantiated.");
+        throw new AssertionError(EnvPathParser.class + " should not be instantiated.");
     }
 
     /**

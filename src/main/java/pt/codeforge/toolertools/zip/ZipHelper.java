@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 class ZipHelper {
@@ -55,8 +56,33 @@ class ZipHelper {
         }
 
         try (ZipFile zipFile = new ZipFile(new File(path))) {
-
             return zipFile.size() == 0;
+        } catch (ZipException ze) {
+            if (ze.getMessage().contains("empty")) {
+                return true;
+            }
+
+            throw ze;
+        }
+    }
+
+    protected static int getLength(String path) throws IOException {
+        if (path.isEmpty()) {
+            throw new IllegalArgumentException("provided argument is empty or null");
+        }
+
+        if (!path.endsWith(".zip")) {
+            throw new IllegalArgumentException("file is not .zip");
+        }
+
+        try (ZipFile zipFile = new ZipFile(new File(path))) {
+            return zipFile.size();
+        } catch (ZipException ze) {
+            if (ze.getMessage().contains("empty")) {
+                return 0;
+            }
+
+            throw ze;
         }
     }
 }

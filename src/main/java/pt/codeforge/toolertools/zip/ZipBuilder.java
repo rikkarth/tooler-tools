@@ -10,6 +10,8 @@ public interface ZipBuilder {
 
     void addToZip(File file);
 
+    void addToZip(String filePath);
+
     void addAllToZip(List<File> files);
 
     int zipSize();

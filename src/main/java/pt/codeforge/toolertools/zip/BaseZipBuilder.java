@@ -1,5 +1,6 @@
 package pt.codeforge.toolertools.zip;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,48 +18,74 @@ import java.util.zip.ZipOutputStream;
 public class BaseZipBuilder implements ZipBuilder {
 
     private final List<File> files = new ArrayList<>();
+    private static final String DEFINED_TARGET_PATH_ISNULL = "Target path defined is null.";
+    private static final String UNDEFINED_TARGET_PATH = "Target path is not defined (null).";
+    private static final String EMPTY_TARGET_PATH = "Target path is empty.";
     private Path targetPath;
 
     public BaseZipBuilder() {
     }
 
     public BaseZipBuilder(Path targetPath) {
+        Objects.requireNonNull(targetPath, DEFINED_TARGET_PATH_ISNULL);
+
+        if (targetPath.toString().isEmpty()) {
+            throw new IllegalArgumentException(EMPTY_TARGET_PATH);
+        }
+
         this.targetPath = targetPath;
     }
 
     public BaseZipBuilder(String targetPath) {
+        Objects.requireNonNull(targetPath, DEFINED_TARGET_PATH_ISNULL);
+
+        if (targetPath.isEmpty()) {
+            throw new IllegalArgumentException(EMPTY_TARGET_PATH);
+        }
+
         this.targetPath = Paths.get(targetPath);
     }
 
     @Override
     public void createZip() {
-        if (this.targetPath == null) {
-            throw new IllegalStateException("Target path is not defined.");
-        }
+        Objects.requireNonNull(this.targetPath, UNDEFINED_TARGET_PATH);
 
-        try (FileOutputStream fos = new FileOutputStream(this.targetPath.toString());
-            ZipOutputStream zos = new ZipOutputStream(fos, StandardCharsets.UTF_8)) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ZipOutputStream zos = new ZipOutputStream(baos, StandardCharsets.UTF_8)) {
 
             this.files.forEach(file -> insertInZip(file, zos));
-        } catch (IOException ioe) {
+            zos.finish();
+
+            writeZipFile(baos);
+
+        } catch (IOException | ZipBuilderException ioe) {
             throw new ZipBuilderException("Unable to create zip.", ioe);
         }
     }
 
     @Override
     public void addToZip(File file) {
-        if (file == null) {
-            throw new IllegalArgumentException("File cannot be null.");
+        Objects.requireNonNull(file, "File cannot be null.");
+
+        this.files.add(file);
+    }
+
+    @Override
+    public void addToZip(String filePath) {
+        Objects.requireNonNull(filePath, "File path cannot be null.");
+
+        if (filePath.isEmpty()) {
+            throw new IllegalArgumentException("File path cannot be empty.");
         }
+
+        File file = new File(filePath);
 
         this.files.add(file);
     }
 
     @Override
     public void addAllToZip(List<File> files) {
-        if (files == null) {
-            throw new IllegalArgumentException("File's list cannot be null.");
-        }
+        Objects.requireNonNull(files, "File's list cannot be null.");
 
         List<File> filteredFiles = files.stream().filter(Objects::nonNull).collect(Collectors.toList());
 
@@ -67,12 +94,24 @@ public class BaseZipBuilder implements ZipBuilder {
 
     @Override
     public BaseZipBuilder setTargetPath(Path targetPath) {
+        Objects.requireNonNull(targetPath, DEFINED_TARGET_PATH_ISNULL);
+
+        if (targetPath.toString().isEmpty()) {
+            throw new IllegalArgumentException(EMPTY_TARGET_PATH);
+        }
+
         this.targetPath = targetPath;
         return this;
     }
 
     @Override
     public BaseZipBuilder setTargetPath(String targetPath) {
+        Objects.requireNonNull(targetPath, DEFINED_TARGET_PATH_ISNULL);
+
+        if (targetPath.isEmpty()) {
+            throw new IllegalArgumentException(EMPTY_TARGET_PATH);
+        }
+
         this.targetPath = Paths.get(targetPath);
         return this;
     }
@@ -82,7 +121,17 @@ public class BaseZipBuilder implements ZipBuilder {
         return this.files.size();
     }
 
+    private void writeZipFile(ByteArrayOutputStream baos) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(this.targetPath.toString())) {
+            baos.writeTo(fos);
+        }
+    }
+
     private void insertInZip(File file, ZipOutputStream zos) {
+        if (!file.exists()) {
+            throw new ZipBuilderException(String.format("file does not exist: %s", file.getAbsolutePath()));
+        }
+
         insertInZip(file, zos, "");
     }
 

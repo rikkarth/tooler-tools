@@ -11,10 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class BaseZipBuilderTest {
@@ -30,8 +28,8 @@ class BaseZipBuilderTest {
     void givenNoTargetPath_testCreateZip_shouldThrowIllegalStateException() {
         BaseZipBuilder baseZipBuilder = new BaseZipBuilder();
 
-        assertThrows(NullPointerException.class, baseZipBuilder::createZip,
-            "should throw NullPointerException when createZip is called without setting target path");
+        assertThrows(IllegalStateException.class, baseZipBuilder::createZip,
+            "should throw IllegalStateException when createZip is called without setting target path");
     }
 
     @Test
@@ -41,6 +39,39 @@ class BaseZipBuilderTest {
 
         assertThrows(NullPointerException.class, () -> new BaseZipBuilder((String) null),
             "should throw NullPointerException when String is null");
+    }
+
+    @Test
+    void givenEmptyTargetPath_testBaseZipBuilder_shouldThrowIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new BaseZipBuilder(""),
+            "should throw IllegalArgumentException when String is empty");
+
+        Path emptyPath = Paths.get("");
+        assertThrows(IllegalArgumentException.class, () -> new BaseZipBuilder(emptyPath),
+            "should throw IllegalArgumentException when Path is empty");
+    }
+
+    @Test
+    void givenSetterNullTargetPath_testBaseZipBuilder_shouldThrowNullPointerException() {
+        BaseZipBuilder baseZipBuilder = new BaseZipBuilder();
+
+        assertThrows(NullPointerException.class, () -> baseZipBuilder.setTargetPath((Path) null),
+            "should throw NullPointerException when Path is null");
+
+        assertThrows(NullPointerException.class, () -> baseZipBuilder.setTargetPath((String) null),
+            "should throw NullPointerException when String is null");
+    }
+
+    @Test
+    void givenSetterEmptyTargetPath_testBaseZipBuilder_shouldThrowIllegalArgumentException() {
+        BaseZipBuilder baseZipBuilder = new BaseZipBuilder();
+
+        assertThrows(IllegalArgumentException.class, () -> baseZipBuilder.setTargetPath(""),
+            "should throw IllegalArgumentException when String is empty");
+
+        Path emptyPath = Paths.get("");
+        assertThrows(IllegalArgumentException.class, () -> baseZipBuilder.setTargetPath(emptyPath),
+            "should throw IllegalArgumentException when Path is empty");
     }
 
     @Test
@@ -110,23 +141,4 @@ class BaseZipBuilderTest {
         assertThrows(NullPointerException.class, () -> zipBuilder.addToZip((File) null),
             "should throw IllegalArgumentException when empty");
     }
-
-    @Test
-    @Disabled("for local testing only")
-    void localTesting() {
-        BaseZipBuilder zipBuilder = new BaseZipBuilder().setTargetPath(TARGET_PATH);
-
-        /*List<File> files = Arrays.asList(
-            new File("src/test/resources/test_resource_1.xml"),
-            new File("src/test/resources/test_resource_2.xml"),
-            new File("src/test/resources/test.properties")
-        );*/
-
-        List<File> files = Collections.singletonList(new File("src/test/resources/test_resource_2.xml"));
-
-        zipBuilder.addAllToZip(files);
-
-        assertDoesNotThrow(zipBuilder::createZip);
-    }
-
 }

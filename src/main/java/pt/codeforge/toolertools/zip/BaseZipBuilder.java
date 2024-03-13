@@ -48,7 +48,7 @@ public class BaseZipBuilder implements ZipBuilder {
 
     @Override
     public void createZip() {
-        Objects.requireNonNull(this.targetPath, UNDEFINED_TARGET_PATH);
+        checkIfTargetPathIsDefined();
 
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ZipOutputStream zos = new ZipOutputStream(baos, StandardCharsets.UTF_8)) {
@@ -58,8 +58,8 @@ public class BaseZipBuilder implements ZipBuilder {
 
             writeZipFile(baos);
 
-        } catch (IOException | ZipBuilderException ioe) {
-            throw new ZipBuilderException("Unable to create zip.", ioe);
+        } catch (IOException | ZipBuilderException e) {
+            throw new ZipBuilderException("Unable to create zip.", e);
         }
     }
 
@@ -121,6 +121,14 @@ public class BaseZipBuilder implements ZipBuilder {
         return this.files.size();
     }
 
+    private void checkIfTargetPathIsDefined() {
+        try {
+            Objects.requireNonNull(this.targetPath, UNDEFINED_TARGET_PATH);
+        } catch (NullPointerException npe) {
+            throw new IllegalStateException(npe.getMessage());
+        }
+    }
+
     private void writeZipFile(ByteArrayOutputStream baos) throws IOException {
         try (FileOutputStream fos = new FileOutputStream(this.targetPath.toString())) {
             baos.writeTo(fos);
@@ -143,7 +151,7 @@ public class BaseZipBuilder implements ZipBuilder {
                 insertFile(file, zos, dirName);
             }
         } catch (IOException ioe) {
-            throw new ZipBuilderException("unable to add to zip", ioe);
+            throw new ZipBuilderException("Failed to insert file/directory into zip: " + file.getAbsolutePath(), ioe);
         }
     }
 

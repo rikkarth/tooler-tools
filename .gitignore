@@ -1,10 +1,10 @@
-### IntelliJ IDEA ###
+# IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
 
-### Eclipse ###
+# Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -13,29 +13,34 @@
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
 
-### Mac OS ###
+# Mac OS
 .DS_Store
 
-### Project ###
+# Maven
 /dependency-reduced-pom.xml
 /javadoc
 /release.properties
-/node_modules/
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+
+# Node.js
+/node_modules/
+
+# Project specific
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 /src/test/resources/output/
+/src/test/java/pt/codeforge/toolertools/zip/BaseZipBuilderLocalTest.java

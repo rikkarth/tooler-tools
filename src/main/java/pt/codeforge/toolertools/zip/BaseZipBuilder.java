@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Base implementation of a ZipBuilder.
+ */
 public class BaseZipBuilder implements ZipBuilder {
 
     private final List<File> files = new ArrayList<>();

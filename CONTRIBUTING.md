@@ -34,7 +34,7 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing to e
 - **Documentation**: Update relevant documentation, such as CHANGELOG.md or JavaDocs, to reflect your changes.
 - **Commit Messages**: Write clear and descriptive commit messages, following [Conventional Commits](https://www.conventionalcommits.org/) format where applicable (optional).
 - **Pull Request Reviews**: Be open to feedback and willing to make changes if required during the PR review process.
-- **License**: Ensure your contributions comply with the project's [license](LICENSE.md).
+- **License**: Ensure your contributions comply with the project's [license](LICENSE).
 
 ## Reporting Issues
 

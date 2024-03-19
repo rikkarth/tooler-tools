@@ -40,6 +40,7 @@ target/
 
 # Project specific
 build/
+src/test/resources/output/*
 !**/src/main/**/build/
 !**/src/test/**/build/
-/src/test/resources/output/
+!src/test/resources/output/.gitkeep

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="http://example.com/test">
+	<test-element type="test_attr" >Test Value</test-element>
+	<empty-element></empty-element>
+	<self-closing/>
+	<element-group>
+		<nested-element>Item 1</nested-element>
+		<nested-element>Item 2</nested-element>
+		<nested-element>Item 3</nested-element>
+	</element-group>
+</root>

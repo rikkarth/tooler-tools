@@ -33,6 +33,20 @@ class BaseZipBuilderTest {
     }
 
     @Test
+    void givenMultipleValidFiles_testAddToZipAndCreateZip_shouldCreateZipWithAllValidFiles() {
+        BaseZipBuilder zipBuilder = new BaseZipBuilder().setTargetPath(TARGET_PATH);
+
+        File file1 = new File("src/test/resources/test_resource_1.xml");
+        File file2 = new File("src/test/resources/test_resource_2.xml");
+
+        zipBuilder.addToZip(file1);
+        zipBuilder.addToZip(file2);
+
+        assertDoesNotThrow(zipBuilder::createZip);
+        assertTrue(new File(TARGET_PATH).exists(), "zip output file should exist");
+    }
+
+    @Test
     void givenNullTargetPath_testBaseZipBuilder_shouldThrowNullPointerException() {
         assertThrows(NullPointerException.class, () -> new BaseZipBuilder((Path) null),
             "should throw NullPointerException when Path is null");

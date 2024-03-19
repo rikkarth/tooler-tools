@@ -58,7 +58,7 @@ class ZipHelper {
         try (ZipFile zipFile = new ZipFile(new File(path))) {
             return zipFile.size() == 0;
         } catch (ZipException ze) {
-            if (ze.getMessage().contains("empty")) {
+            if (zipExceptionMsgContainsEmpty(ze)) {
                 return true;
             }
 
@@ -78,11 +78,27 @@ class ZipHelper {
         try (ZipFile zipFile = new ZipFile(new File(path))) {
             return zipFile.size();
         } catch (ZipException ze) {
-            if (ze.getMessage().contains("empty")) {
+            if (zipExceptionMsgContainsEmpty(ze)) {
                 return 0;
             }
 
             throw ze;
         }
+    }
+
+    protected static int getLength(File file) throws IOException {
+        try (ZipFile zipFile = new ZipFile(file)) {
+            return zipFile.size();
+        } catch (ZipException ze) {
+            if (zipExceptionMsgContainsEmpty(ze)) {
+                return 0;
+            }
+
+            throw ze;
+        }
+    }
+
+    private static boolean zipExceptionMsgContainsEmpty(ZipException ze) {
+        return ze.getMessage().contains("empty");
     }
 }

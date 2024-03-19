@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/rikkarth/tooler-tools/compare/0.0.8...0.1.0) (2024-03-19)
+
+
+### Features
+
+* **XmlHandler:** get element from xpath ([00fc2a0](https://github.com/rikkarth/tooler-tools/commits/00fc2a04f91fa448ea59e25441d477b7736e39fe))
+* **ZipBuilder:** base implementation ([aa8cceb](https://github.com/rikkarth/tooler-tools/commits/aa8cceb6b599dfd7dee6492fabdbfeb0a5ef3f36))
+
 ### 0.0.8 (2023-12-14)
 
 

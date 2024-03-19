@@ -37,10 +37,10 @@
             "hidden": true
         },
         {
-            "tpe": "build",
+            "type": "build",
             "hidden": true
         }
     ],
-    "commitUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/commits/{{hash}}",
-    "compareUrlFormat": "https://github.com/mokkapps/changelog-generator-demo/compare/{{previousTag}}...{{currentTag}}"
+    "commitUrlFormat": "https://github.com/rikkarth/tooler-tools/commits/{{hash}}",
+    "compareUrlFormat": "https://github.com/rikkarth/tooler-tools/compare/{{previousTag}}...{{currentTag}}"
 }

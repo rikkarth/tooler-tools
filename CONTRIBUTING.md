@@ -1,10 +1,12 @@
 # Contributing Guidelines
 
-Thank you for considering contributing to our project! We welcome contributions from anyone interested in improving the project. Before making a contribution, please take a moment to review the following guidelines.
+Thank you for considering contributing to our project! We welcome contributions from anyone interested in improving the
+project. Before making a contribution, please take a moment to review the following guidelines.
 
 ## Code of Conduct
 
-Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing to ensure a positive and inclusive environment for everyone.
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing to ensure a positive and inclusive
+environment for everyone.
 
 ## How to Contribute
 
@@ -25,24 +27,35 @@ Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing to e
     ```sh
     git push origin feat/your-feature-name
     ```
-6. Open a pull request (PR) against the **dev branch** of the original repository. Please provide a clear title and description for your PR, explaining the purpose of the changes.
+6. Open a pull request (PR) against the **dev branch** of the original repository. Please provide a clear title and
+   description for your PR, explaining the purpose of the changes.
 
 ## Contribution Guidelines
 
-- **Coding Standards**: Follow the coding standards and conventions used in the project. Ensure your code is well-formatted and easy to read.
+- **Coding Standards**: Follow the coding standards and conventions used in the project. Ensure your code is
+  well-formatted and easy to read.
 - **Testing**: Write tests to cover your code changes. Ensure existing tests pass before submitting a PR.
 - **Documentation**: Update relevant documentation, such as CHANGELOG.md or JavaDocs, to reflect your changes.
-- **Commit Messages**: Write clear and descriptive commit messages, following [Conventional Commits](https://www.conventionalcommits.org/) format where applicable (optional).
+- **JavaDocs**: When creating JavaDocs, the primary focus should be on public elements such as accessors, methods,
+  fields, and constructors. These are the elements that will be most frequently used by other developers, so they should
+  be thoroughly documented. Private methods, on the other hand, should be written in a way that is focused and
+  descriptive, making them self-explanatory. However, if a private element is complex or its purpose is not immediately
+  clear, it may be necessary to include JavaDoc comments for it as well.
+- **Commit Messages**: Write clear and descriptive commit messages,
+  following [Conventional Commits](https://www.conventionalcommits.org/) format where applicable (optional).
 - **Pull Request Reviews**: Be open to feedback and willing to make changes if required during the PR review process.
 - **License**: Ensure your contributions comply with the project's [license](LICENSE).
 
 ## Reporting Issues
 
-If you encounter any issues or have suggestions for improvements, please [open an issue](https://github.com/rikkarth/tooler-tools/issues) on GitHub and provide detailed information about the problem or suggestion.
+If you encounter any issues or have suggestions for improvements,
+please [open an issue](https://github.com/rikkarth/tooler-tools/issues) on GitHub and provide detailed information about
+the problem or suggestion.
 
 ## Get in Touch
 
-If you have any questions or need further assistance, feel free to reach out to us through GitHub issues or [discussions](https://github.com/rikkarth/tooler-tools/discussions).
+If you have any questions or need further assistance, feel free to reach out to us through GitHub issues
+or [discussions](https://github.com/rikkarth/tooler-tools/discussions).
 
 ## Acknowledgements
 

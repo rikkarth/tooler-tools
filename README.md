@@ -1,6 +1,7 @@
 # Tooler-Tools
 
 [![Maven Central](https://img.shields.io/maven-central/v/pt.codeforge/tooler-tools.svg)](https://mvnrepository.com/artifact/pt.codeforge/tooler-tools)
+[![SonaType Central](https://img.shields.io/nexus/r/pt.codeforge/tooler-tools?server=https%3A%2F%2Fs01.oss.sonatype.org)](https://central.sonatype.com/artifact/pt.codeforge/tooler-tools)
 [![Java CI with Maven](https://github.com/rikkarth/tooler-tools/actions/workflows/maven.yml/badge.svg)](https://github.com/rikkarth/tooler-tools/actions/workflows/maven.yml)
 [![Static Badge](https://img.shields.io/badge/Official%20Documentation-here-brightgreen)](https://codeforge.pt)
 
